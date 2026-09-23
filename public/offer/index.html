@@ -50,20 +50,30 @@
     .btn{display:inline-block;background:var(--op-accent);color:var(--op-dark);
       font:600 15px/1 var(--op-body);border-radius:6px;
       padding:15px 26px;text-decoration:none}
-    table{width:100%;border-collapse:collapse;background:var(--op-panel)}
-    th,td{padding:13px 14px;border:1px solid var(--op-line);
-      text-align:left;vertical-align:top;font-size:15px;overflow-wrap:anywhere}
-    thead th{background:var(--op-dark);color:#fff;font-family:var(--op-display);
-      font-weight:600;letter-spacing:.01em;font-size:16px}
-    td:first-child{width:50%}
-    td:last-child{background:#F3F4F5}
+    /* The tape is pairs, not a table: the problem on top, the fix beneath it
+       in the same shape. Titles carry the argument, so they are what the eye
+       lands on; the accent rule marks the fix without a word of labelling. */
+    .tape{display:grid;gap:16px;
+      grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+    .tp{background:var(--op-panel);border:1px solid var(--op-line);
+      border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+    /* The problem half takes up the slack, so the fixes line up across a row
+       however long the problems run. */
+    .tp > div{padding:15px 17px}
+    .tp b{display:block;font-family:var(--op-display);font-weight:600;
+      font-size:1.06rem;line-height:1.2;margin-bottom:5px}
+    .tp span{display:block;font-size:14px;line-height:1.5;color:#40505E}
+    .tp .was{background:#F3F4F5;flex:1}
+    .tp .was b{color:#40505E}
+    .tp .now{border-top:1px solid var(--op-line);
+      box-shadow:inset 3px 0 0 var(--op-accent)}
+    .tp .now b{color:var(--op-ink)}
     .strip{display:grid;gap:1px;
       grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));
       background:var(--op-line);border:1px solid var(--op-line)}
     .strip div{background:var(--op-panel);padding:16px;font-size:14px}
     .strip b{display:block;font-family:var(--op-display);font-weight:600;
       font-size:18px;margin-bottom:4px}
-    .table-wrap{overflow-x:auto}
   </style>
 </head>
 <body>
@@ -112,28 +122,35 @@
 <section class="light">
   <div class="wrap">
     <h2>Tale of the tape</h2>
-    <div class="table-wrap">
-    <table>
-      <thead><tr><th>The Google Site today</th><th>The new site</th></tr></thead>
-      <tbody>
-        <tr><td>Lives at sites.google.com/view/… and greets every first visit with Google's cookie banner, which covers a third of a phone screen.</td>
-            <td>Ready for the lab's own domain; no cookies, no banner, nothing to consent to.</td></tr>
-        <tr><td>The home page carries a dead "Tweets by ConnectomeLab" embed — a blank block and a bare link where the timeline used to be.</td>
-            <td>The population-average tractogram itself, drawn live on the page — spin it, drag it — with the social links in one row in the footer.</td></tr>
-        <tr><td>134 papers in one flat list: no search, no year or category filter; two entries merged into one paragraph, one PDF link orphaned on its own line.</td>
-            <td>Publications searchable and grouped by year, with tabs for journals, conference papers, chapters, other and press — every PDF and link kept.</td></tr>
-        <tr><td>No email address or phone number anywhere on the site; Join us says "get in touch with me" with nowhere to go.</td>
-            <td>Email and phone on the Contact page and linked from Join us (from the university staff listing — to confirm).</td></tr>
-        <tr><td>Body text is justified, so on a phone the words spread apart into wide gaps.</td>
-            <td>Left-aligned text at a 65-character measure; verified 320→1920px with nothing overflowing.</td></tr>
-        <tr><td>The research page's four figures are static screenshots of MATLAB plots and diagrams — nothing to touch.</td>
-            <td>Four interactive models with sliders: stimulate the tissue, move the classifier threshold, grow a network, watch activity spread through modules.</td></tr>
-        <tr><td>Team page is 34 names as headings with a role under each; the PI's link still says "Twitter".</td>
-            <td>Current members and alumni separated, roles and destinations scannable, links current.</td></tr>
-        <tr><td>Colours, fonts and layout are Google Sites theme defaults; the lab mark is 86 pixels wide and there is no favicon.</td>
-            <td>University of Nottingham palette, self-hosted type, a proper mark and favicon — it looks like it belongs next to the School's pages.</td></tr>
-      </tbody>
-    </table>
+    <div class="tape">
+      <div class="tp">
+        <div class="was"><b>Google's address, Google's banner</b><span>It lives at sites.google.com/view/… and a cookie banner covers a third of the first phone screen.</span></div>
+        <div class="now"><b>The lab's own address</b><span>Ready for the lab's domain, with no cookies and nothing to consent to.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>A dead Twitter embed</b><span>The home page carries a blank block where the timeline used to be.</span></div>
+        <div class="now"><b>The brain itself, live</b><span>The population-average tractogram draws itself on the page — spin it, drag it.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>134 papers, one flat list</b><span>No search, no year filter, and two entries merged into a single paragraph.</span></div>
+        <div class="now"><b>Searchable, grouped by year</b><span>Tabs for journals, conference papers, chapters, other and press, every PDF kept.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>No way to reach anyone</b><span>No email or phone anywhere on the site, and Join us points nowhere.</span></div>
+        <div class="now"><b>Contact details on the page</b><span>Email and phone on Contact, linked from Join us, marked where still unconfirmed.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>Four figures you cannot touch</b><span>The research page shows static screenshots of MATLAB plots and diagrams.</span></div>
+        <div class="now"><b>Four models with sliders</b><span>Stimulate tissue, move a threshold, grow a network, watch activity spread.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>34 names in a column</b><span>Every member is a heading with a role beneath, and the PI's link still says Twitter.</span></div>
+        <div class="now"><b>Current members and alumni</b><span>Separated, with roles and destinations scannable and every link current.</span></div>
+      </div>
+      <div class="tp">
+        <div class="was"><b>Google Sites theme defaults</b><span>Stock colours and fonts, a lab mark 86 pixels wide, and no favicon at all.</span></div>
+        <div class="now"><b>The University's own palette</b><span>Nottingham colours, self-hosted type, a proper mark and favicon.</span></div>
+      </div>
     </div>
   </div>
 </section>
