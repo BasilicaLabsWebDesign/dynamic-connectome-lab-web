@@ -80,6 +80,23 @@ batches: implement, verify, commit, push.
 - Never include model names, AI attribution trailers, session links, or other
   tooling identifiers in commit messages, titles, or code.
 
+## The prompt archive
+
+`prompt text/` holds the records for the version currently in service - nothing
+else. Shipping version N replaces the folder's contents wholesale, in the same
+push that releases the version: remove the previous version's folder(s) and add
+`prompt text/N/` containing `input.txt` (the prompt, byte for byte),
+`output.txt` (the reply that shipped it, byte for byte) and any input images or
+files the owner provided. The files are owner-supplied records: never edit,
+reformat, trim or regenerate them. N counts the prompts that have shipped and
+is not the release tag: a push that ships no new prompt leaves the archive
+exactly as it is.
+
+The skill that describes this archive also asks for an `ai model.txt` naming
+the model. This session's standing instructions forbid writing a model
+identifier into anything pushed to a repository, so that one file is left for
+the owner to add.
+
 ## The pages themselves
 
 Content is the lab's own, taken from their Google Site and recorded with source
@@ -108,3 +125,4 @@ its column so a page lines up on the right, card grids use
 | v1.9 | Body text now reaches the same edge | Paragraphs used to stop well short of the right-hand edge that the headings, cards and figures all reach, which left a band of empty space down the side of several pages. The text now runs the full width of its column, so everything on a page lines up. |
 | v1.10 | The offer talks about ownership, not money | The offer page no longer explains fees it does not show. It leads instead with what the lab ends up owning, and says the figures are gone through on a video call. It closes by making the no-obligation part plain: the site comes down on request, or the lab can simply keep it, hosted free for good at its own domain. |
 | v1.11 | The demo gets an address of its own | The site now answers on a proper domain instead of only a generated one, and says so on every page, so a shared link always unfurls under the same name. The old address keeps working exactly as before — nothing that has already been sent out will break. |
+| v1.12 | The offer page says it the way it sells | The offer page now words the money the way the rest of the pitch does — what the lab would be investing, rather than what the site costs. The facts are identical, only the framing moved, and the page still shows no figures at all. |

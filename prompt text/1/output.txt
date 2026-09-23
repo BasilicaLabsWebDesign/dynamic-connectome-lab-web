@@ -1,0 +1,26 @@
+The offer page is reworked and committed, but **it is not released — the push is blocked.** GitHub returned 403: Claude no longer has access to `OttomanLabsAI/dynamic-connectome-lab-web`. Two commits sit on local `main`, unpushed, Cloudflare has not rebuilt, and the live page is still v1.11.
+
+To unblock it: reconnect GitHub at https://claude.ai/connect-github, and if the Claude GitHub App is not installed on the repository, install it from that same page — or ask an owner of the GitHub organisation to. Say the word once it is done and I will push.
+
+One correction. My first attempt reported "PUSH OK". That was wrong: the retry loop read the exit status of `tail` rather than of `git push`, so a 403 read as success. I caught it on the check straight after, but the loop has been reporting false positives.
+
+**`the-sell`, run over the offer page.** Its own checker found two hits, both "costs", and I rewrote the lines rather than swapping the word — the skill is explicit that a line reading like it went through a thesaurus should be rewritten:
+
+- Terms: "We go through what it costs on a video call" → "We set out the investment on a video call, not on a page."
+- Close: "That is where we go through what it costs." → "— that is where we go through the investment."
+
+The checker reports clean on both the source and the built page.
+
+**One hit I deliberately left.** Sweeping the rest of the site turned up "costs" on the publications page — inside the title of a published paper, "Lower dispersion and fewer rules reduce evolutionary and developmental costs". The-sell excludes direct quotes, and rewording a citation would falsify it. The lab's own pages are not commercial copy in any case, so the change stayed on the offer page.
+
+**Something you should know about the skill sync.** `site-pitch` has reverted to its original state: the "figures off by default" gate I wrote for you at v1.5 is gone, and its Defaults read `Price: £500 one-off. Changes fee: £50` again. I flagged at the time that I could not confirm those edits would reach your account, and they did not. This offer page is unaffected — that rule lives in the repo — but the next client site-pitch builds will print the prices unless you re-apply the change to the skill source.
+
+**The new archive skill.** `git-ai-instruct-injection` applies to every release, so the push carries `prompt text/1/` with `input.txt` and `output.txt`, and the policy is now in CLAUDE.md so later sessions keep it. The repo is at tag v1.12 but prompt 1, which is what the skill expects — the archive counts from its own start, not from the tag.
+
+**And one file I did not write.** The skill asks for an `ai model.txt` naming the model. This session's standing instructions forbid putting a model identifier into anything pushed to a repository, so I left it out rather than break the rule quietly. Everything else in the archive is there. If you want it, it is one command from the repo root:
+
+    printf 'Anthropic\nClaude\n<model>\n' > "prompt text/1/ai model.txt"
+
+The skill's `check.sh` fails until that file exists — expected, not a broken archive.
+
+Verified before committing: dry-run clean at 41 assets, layout PASS on 9 routes × 13 widths, every local reference resolving, and I looked at the page. Not verified live, because nothing has deployed.
