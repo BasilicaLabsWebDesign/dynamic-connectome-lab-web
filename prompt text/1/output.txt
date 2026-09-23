@@ -1,26 +1,13 @@
-The offer page is reworked and committed, but **it is not released — the push is blocked.** GitHub returned 403: Claude no longer has access to `OttomanLabsAI/dynamic-connectome-lab-web`. Two commits sit on local `main`, unpushed, Cloudflare has not rebuilt, and the live page is still v1.11.
+You're right, and I missed it. `site-pitch`'s offer reference changed too, and I only read `the-sell` — I treated "the new skill updates" as that one skill rather than re-reading the reference for the page I was editing.
 
-To unblock it: reconnect GitHub at https://claude.ai/connect-github, and if the Claude GitHub App is not installed on the repository, install it from that same page — or ask an owner of the GitHub organisation to. Say the word once it is done and I will push.
+The spec now reads: **4–7 pairs, each one card. On top the problem — a title and a one-line subtitle. Underneath the fix, the same shape. Titles five words or fewer, subtitles one sentence, nothing else — no table, no paragraphs; the prospect reads titles, not cells.**
 
-One correction. My first attempt reported "PUSH OK". That was wrong: the retry loop read the exit status of `tail` rather than of `git push`, so a 403 read as success. I caught it on the check straight after, but the loop has been reporting false positives.
+So the table is gone. Eight rows became seven pairs, titles running four to five words, the problem half grey on top and the fix beneath it behind an accent rule. I also made the problem half absorb the slack, so the fixes line up across each row instead of floating at whatever height the text above them happened to end.
 
-**`the-sell`, run over the offer page.** Its own checker found two hits, both "costs", and I rewrote the lines rather than swapping the word — the skill is explicit that a line reading like it went through a thesaurus should be rewritten:
+**One row I dropped rather than converted.** "Body text is justified…" → "Left-aligned text at a 65-character measure". That measure was taken out at v1.9, when you asked for the paragraphs to run full width — so the page was claiming something about the live site that had stopped being true two releases earlier. Cutting it fixed the false claim and brought the count inside the 4–7 the spec asks for.
 
-- Terms: "We go through what it costs on a video call" → "We set out the investment on a video call, not on a page."
-- Close: "That is where we go through what it costs." → "— that is where we go through the investment."
+**Two things in the spec I deliberately did not apply.** Item 3 is the two price cards, and item 4 is a "How is it this cheap?" section. Both put figures, or a justification of figures, on a page you have twice told me shows none — at v1.5, and again at v1.10 when you asked why it was talking about prices that were not there. The skill reverted to its original pricing defaults in the same sync, so it no longer carries your instruction; the repo does, and that is what I followed.
 
-The checker reports clean on both the source and the built page.
+Verified: the-sell checker clean on the offer page, dry-run clean at 41 assets, layout PASS on 9 routes × 13 widths, every local reference resolving, and I looked at the page at desktop and phone widths.
 
-**One hit I deliberately left.** Sweeping the rest of the site turned up "costs" on the publications page — inside the title of a published paper, "Lower dispersion and fewer rules reduce evolutionary and developmental costs". The-sell excludes direct quotes, and rewording a citation would falsify it. The lab's own pages are not commercial copy in any case, so the change stayed on the offer page.
-
-**Something you should know about the skill sync.** `site-pitch` has reverted to its original state: the "figures off by default" gate I wrote for you at v1.5 is gone, and its Defaults read `Price: £500 one-off. Changes fee: £50` again. I flagged at the time that I could not confirm those edits would reach your account, and they did not. This offer page is unaffected — that rule lives in the repo — but the next client site-pitch builds will print the prices unless you re-apply the change to the skill source.
-
-**The new archive skill.** `git-ai-instruct-injection` applies to every release, so the push carries `prompt text/1/` with `input.txt` and `output.txt`, and the policy is now in CLAUDE.md so later sessions keep it. The repo is at tag v1.12 but prompt 1, which is what the skill expects — the archive counts from its own start, not from the tag.
-
-**And one file I did not write.** The skill asks for an `ai model.txt` naming the model. This session's standing instructions forbid putting a model identifier into anything pushed to a repository, so I left it out rather than break the rule quietly. Everything else in the archive is there. If you want it, it is one command from the repo root:
-
-    printf 'Anthropic\nClaude\n<model>\n' > "prompt text/1/ai model.txt"
-
-The skill's `check.sh` fails until that file exists — expected, not a broken archive.
-
-Verified before committing: dry-run clean at 41 assets, layout PASS on 9 routes × 13 widths, every local reference resolving, and I looked at the page. Not verified live, because nothing has deployed.
+Still not pushed. The 403 has not changed, so all of this is committed locally and waiting on GitHub access.

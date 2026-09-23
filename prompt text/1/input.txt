@@ -1,3 +1,7 @@
 update the offer page
 
 as per the new skill updates
+
+why does it still look like this?
+
+the skill should have told you to title and subtitle the points
