@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const { requireChromium } = require('./lib/chrome');
 const { chromium } = require('playwright-core');
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 && process.argv[i + 1] ? process.argv[i + 1] : d; };
@@ -27,7 +28,7 @@ const server = http.createServer((req, res) => {
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   const port = server.address().port;
   fs.mkdirSync(OUT, { recursive: true });
-  const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const browser = await chromium.launch({ executablePath: requireChromium(), args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   for (const [name, w, h] of [['desktop', 1440, 900], ['phone', 390, 844]]) {
     let ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
     let page = await ctx.newPage();
@@ -36,6 +37,10 @@ const server = http.createServer((req, res) => {
       await page.evaluate(() => document.fonts.ready);
       await page.waitForTimeout(r === '/' ? 6000 : r === '/research/' ? 2500 : 200);
       if (r === '/research/') { for (const f of await page.$$('.ifig')) { await f.scrollIntoViewIfNeeded(); await page.waitForTimeout(150); } await page.waitForTimeout(2500); }
+      /* Stop the brain turning before the shutter, or the capture catches it
+         mid-frame. The switch is therefore off in every home-page screenshot
+         even though the page opens with it on — that is this click, not a
+         regression. */
       if (r === '/') { const sp = await page.$('.tract-spin'); if (sp) await sp.click().catch(() => {}); await page.waitForTimeout(400); }
       const slug = r === '/' ? 'home' : r.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
       try {

@@ -23,23 +23,8 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const { execSync } = require('child_process');
 
-const CHROME_CANDIDATES = [
-  'chromium', 'chromium-browser', 'google-chrome', 'google-chrome-stable',
-  'chrome', 'headless_shell',
-  '/usr/bin/chromium', '/usr/bin/chromium-browser', '/usr/bin/google-chrome-stable',
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  '/Applications/Chromium.app/Contents/MacOS/Chromium',
-];
-function findChromium() {
-  for (const c of CHROME_CANDIDATES) {
-    if (c.startsWith('/')) { if (fs.existsSync(c)) return c; continue; }
-    try { return execSync(`command -v ${c}`, { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() || null; }
-    catch { /* keep looking */ }
-  }
-  return null;
-}
+const { findChromium } = require('./lib/chrome');
 
 const TRACKER_HOSTS = [
   'googletagmanager', 'google-analytics', 'doubleclick', 'facebook.net',

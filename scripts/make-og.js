@@ -22,8 +22,8 @@ const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 && proc
 const ROOT = path.resolve(__dirname, '..');
 const DIR = path.join(ROOT, 'public');
 const OUT = path.resolve(ROOT, arg('--out', 'public/assets/img/og.jpg'));
-const CHROME = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser']
-  .find(p => fs.existsSync(p));
+const { findChromium } = require('./lib/chrome');
+const CHROME = findChromium();
 
 const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.txt': 'text/plain', '.jpg': 'image/jpeg', '.png': 'image/png' };
 const server = http.createServer((req, res) => {
@@ -144,7 +144,11 @@ function compose(card) {
     executablePath: CHROME,
     args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']
   });
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  /* The brain is drawn in one column of the hero now, so at one device pixel
+     per CSS pixel the crop comes out smaller than the box it goes into on the
+     card. Rendering at two doubles the canvas behind it, so the card is made
+     by scaling the brain down rather than up. */
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
   await ctx.addInitScript(GRAB_CONTEXT);
   const page = await ctx.newPage();
   page.on('pageerror', e => console.error('page error:', e.message));
