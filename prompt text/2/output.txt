@@ -1,0 +1,35 @@
+Both done, and the backlog is unblocked — v1.12 went out first, v1.13 follows it.
+
+**The hero.** The abstract node-and-edge diagram is gone; the brain is there
+instead, beside the lab's name, and the band it used to sit in below the hero
+has gone with it. It still draws itself strand by strand, still turns, still
+takes a drag, and the switch still reads Spin.
+
+Its shape had to change to live in half the page. The stage was a viewport-sized
+box; it is now tied to its own width at 6:5, a shade taller than the brain at
+its widest, so the same air sits on all four sides whatever the column comes out
+at. Measured on the drawn pixels at four widths and three rotations: the closest
+the wiring comes to an edge is 21px, and it is even top-to-bottom and
+left-to-right. On the old clamp it was 10px at the top and 21px at the bottom on
+a laptop.
+
+**The offer.** "Tale of the tape" now reads **Seven things that change**, which
+is what the seven cards under it are.
+
+**The social card.** It is cropped out of the home page's own canvas, and that
+canvas just got smaller, so a straight re-run would have blown a 446px brain up
+into a 574px box. It now renders the page at two device pixels to one, crops
+894x717 and scales down. Regenerated and sharp, with its cache marker bumped so
+the unfurlers refetch it.
+
+**One thing I could not do.** The screenshot you sent with this prompt is not on
+disk any more, so `prompt text/2/` has the words but not the image. Those files
+are your records and I will not regenerate one — send it again and I will add it.
+
+**Two things to know.** The repo has moved: GitHub is redirecting
+OttomanLabsAI/dynamic-connectome-lab-web to
+BasilicaLabsWebDesign/dynamic-connectome-lab-web. Pushes work through the
+redirect, but say the word and I will repoint the remote. And `npm run shots`
+could not find Chromium in a fresh container — three scripts each hard-coded a
+path with a build number in it. They now share one lookup that finds whatever is
+installed.
