@@ -118,8 +118,7 @@ section{padding:64px 0}
 .hero .wrap{display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));align-items:center}
 .hero h1{margin-bottom:.35em}
 .hero .lede{color:rgba(255,255,255,.82)}
-.hero-art{justify-self:center;width:min(100%,520px)}
-.hero-art svg{width:100%;height:auto}
+.hero-art{width:100%}
 .hero-inner{padding:72px 0 56px;background:var(--navy);color:#fff}
 .hero-inner p{color:rgba(255,255,255,.82)}
 
@@ -145,9 +144,13 @@ section{padding:64px 0}
 .card-num{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;color:var(--accent)}
 
 /* ── Tractogram ────────────────────────────────────────────────── */
-.tract-band{background:var(--navy);color:#fff;padding:0 0 40px}
-.tract-stage{position:relative;width:100%;height:clamp(380px,52vw,640px);background:var(--navy)}
-.tract-stage canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y;outline:none}
+/* The stage sits in one column of the hero, so its height follows its own
+   width rather than the viewport: a shape a shade taller than the brain at
+   its widest, which leaves the same air on all four sides at every column
+   width. The canvas is taken out of flow so its full height does not
+   depend on a percentage resolving against a ratio-derived box. */
+.tract-stage{position:relative;width:100%;aspect-ratio:6/5;min-height:320px;max-height:460px;background:var(--navy)}
+.tract-stage canvas{position:absolute;inset:0;display:block;width:100%;height:100%;cursor:grab;touch-action:pan-y;outline:none}
 .tract-stage canvas:active{cursor:grabbing}
 .tract-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;font-size:.9rem;color:rgba(255,255,255,.6);text-align:center;pointer-events:none}
 .tract-status[hidden]{display:none}

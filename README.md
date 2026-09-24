@@ -97,8 +97,8 @@ export PATH="$PWD/.bin:$PATH"
 
 ## The tractogram
 
-The home page draws the HCP1065 population-average streamlines itself with
-NiiVue, on the site's own blue, from `public/assets/tracts/hcp1065.trx` — the
+The home page's hero draws the HCP1065 population-average streamlines itself
+with NiiVue, beside the headline and on the site's own blue, from `public/assets/tracts/hcp1065.trx` — the
 real 6.2 MB file, the same one visualneuroscience.ai/tracts serves (the
 0.6 MB `dpsv.trx` that stood in for it during the build is kept in
 `work/tracts/` for reference). The strands draw themselves along their paths
@@ -141,8 +141,10 @@ tractogram rather than a stock picture. `npm run og` regenerates it: it serves
 `public/`, lets the home page draw and grow the brain exactly as a visitor
 sees it, crops the drawn brain out of the WebGL canvas and sets the wordmark
 beside it in the real Fraunces and Inter, inside the page where they are
-already loaded. Re-run it after changing the viewer, the palette or the
-wording on the card.
+already loaded. It renders the page at two device pixels to one CSS pixel, so
+the brain — drawn in one column of the hero rather than across the page — is
+scaled down into the card rather than up. Re-run it after changing the viewer,
+the palette or the wording on the card.
 
 The pages point at it with a root-relative `og:image`. Every service that
 matters resolves that against the page URL, but if this ever moves to the

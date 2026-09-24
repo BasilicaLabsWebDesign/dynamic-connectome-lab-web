@@ -108,14 +108,14 @@ ${url ? `  <link rel="canonical" href="${url}">\n  <meta property="og:url" conte
   <meta property="og:site_name" content="Dynamic Connectome Lab">
   <meta property="og:title" content="${esc(fullTitle)}">
   <meta property="og:description" content="${esc(description)}">
-  <meta property="og:image" content="${BASE}/assets/img/og.jpg">
+  <meta property="og:image" content="${BASE}/assets/img/og.jpg?v=1.13">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="The population-average wiring of the human brain, drawn in fibre-direction colour, beside the lab's name.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/fonts/fonts.css">
-  <link rel="stylesheet" href="/assets/css/site.css?v=1.9">
+  <link rel="stylesheet" href="/assets/css/site.css?v=1.13">
 ${head}</head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
 <!-- DEMO-BAR -->

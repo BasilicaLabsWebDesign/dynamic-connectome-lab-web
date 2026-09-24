@@ -2,36 +2,6 @@
 // Home, Team, Research — content verbatim from the captured Google Site (work/brief.json).
 const { socialList } = require('./layout');
 
-// ── Hero art: an original network graph (deterministic) ────────────────
-function heroArt() {
-  let seed = 7;
-  const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-  const W = 520, H = 400, N = 46;
-  const pts = [];
-  for (let i = 0; i < N; i++) {
-    // scatter inside a soft ellipse, with a denser core
-    const a = rnd() * Math.PI * 2, r = Math.sqrt(rnd());
-    pts.push({ x: W / 2 + Math.cos(a) * r * 230, y: H / 2 + Math.sin(a) * r * 165, hub: false });
-  }
-  // hubs: five larger gold nodes
-  [3, 11, 19, 27, 38].forEach(i => { pts[i].hub = true; });
-  const edges = [];
-  for (let i = 0; i < N; i++) {
-    const d = pts.map((p, j) => ({ j, d: Math.hypot(p.x - pts[i].x, p.y - pts[i].y) })).filter(o => o.j !== i).sort((a, b) => a.d - b.d);
-    const k = pts[i].hub ? 7 : 2 + Math.floor(rnd() * 2);
-    for (let m = 0; m < k; m++) { const j = d[m].j; if (i < j) edges.push([i, j]); else edges.push([j, i]); }
-  }
-  const uniq = [...new Set(edges.map(e => e.join('-')))].map(s => s.split('-').map(Number));
-  const paths = uniq.map(([i, j]) => `M${pts[i].x.toFixed(1)} ${pts[i].y.toFixed(1)}L${pts[j].x.toFixed(1)} ${pts[j].y.toFixed(1)}`).join('');
-  const nodes = pts.map(p => p.hub
-    ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="7" fill="#DEB406"/>`
-    : `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.2" fill="#fff" opacity=".9"/>`).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Abstract network graph: nodes connected by edges, with a few highlighted hubs">
-  <path d="${paths}" stroke="#37B4B0" stroke-width="1.1" fill="none" opacity=".55"/>
-  ${nodes}
-</svg>`;
-}
-
 const home = {
   path: '/', title: 'Home',
   /* /assets/* is served immutable for a year, so the version marker is what
@@ -51,19 +21,15 @@ const home = {
         <a class="btn btn-ghost" href="/join-us/">Join the lab</a>
       </div>
     </div>
-    <div class="hero-art">${heroArt()}</div>
-  </div>
-</section>
-
-<section class="tract-band on-dark">
-  <div class="wrap">
-    <div class="tract-stage" id="tractogram" data-lib="/assets/js/niivue.umd.js" data-tract="/assets/tracts/hcp1065.trx" data-bg="#10263B">
-      <canvas aria-label="Interactive tractogram of a population-average human brain: drag to turn it"></canvas>
-      <p class="tract-status" role="status">Loading the viewer…</p>
-      <div class="tract-bar" hidden></div>
-      <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spin</span></button>
+    <div class="hero-art">
+      <div class="tract-stage" id="tractogram" data-lib="/assets/js/niivue.umd.js" data-tract="/assets/tracts/hcp1065.trx" data-bg="#10263B">
+        <canvas aria-label="Interactive tractogram of a population-average human brain: drag to turn it"></canvas>
+        <p class="tract-status" role="status">Loading the viewer…</p>
+        <div class="tract-bar" hidden></div>
+        <button class="tract-spin" type="button" aria-pressed="true"><i aria-hidden="true"></i><span>Spin</span></button>
+      </div>
+      <p class="tract-credit">Population-average tractography of the human brain — HCP1065 atlas (Yeh, 2022, CC BY-SA 4.0). Drag to turn it; colours show fibre direction.</p>
     </div>
-    <p class="tract-credit">Population-average tractography of the human brain — HCP1065 atlas (Yeh, 2022, CC BY-SA 4.0). Drag to turn it; colours show fibre direction.</p>
   </div>
 </section>
 
