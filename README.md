@@ -136,19 +136,22 @@ continues; check that view in a real browser.
 
 ## The social card
 
-`public/assets/img/og.jpg` is what a shared link unfurls to — the site's own
-tractogram rather than a stock picture. `npm run og` regenerates it: it serves
-`public/`, lets the home page draw and grow the brain exactly as a visitor
-sees it, crops the drawn brain out of the WebGL canvas and sets the wordmark
-beside it in the real Fraunces and Inter, inside the page where they are
-already loaded. It renders the page at two device pixels to one CSS pixel, so
-the brain — drawn in one column of the hero rather than across the page — is
-scaled down into the card rather than up. Re-run it after changing the viewer,
-the palette or the wording on the card.
+`public/assets/img/og.jpg` is what a shared link unfurls to — a photograph of
+the home page's own hero rather than a picture composed to look like it, so
+the two cannot drift apart. `npm run og` retakes it: it serves `public/`, lets
+the hero draw and grow the brain exactly as a visitor sees it, hides the demo
+bar, the site header and the spin switch — chrome and a control, none of which
+belongs in a link preview — pins the hero to 1200×630 with its content centred,
+and shoots it at one device pixel to one CSS pixel, so nothing is rescaled. The
+atlas credit stays in frame: the card is a use of the tractography and CC BY-SA
+4.0 wants it attributed wherever it appears. Re-run it after changing the hero,
+the palette or the wording.
 
-The pages point at it with a root-relative `og:image`. Every service that
-matters resolves that against the page URL, but if this ever moves to the
-lab's own domain it is worth making absolute.
+The pages point at it with an absolute `og:image` on the site's own domain,
+since several of the preview services will not resolve a relative one. It
+carries a `?v=` marker: `/assets/*` is served immutable for a year, so a retaken
+card only reaches the services that have already fetched one if that marker is
+bumped in `src/layout.js` with it.
 
 Two things had to give for the card to appear at all. The offer page and the
 new site carry `noindex,nofollow` and `robots.txt` still shuts every search
