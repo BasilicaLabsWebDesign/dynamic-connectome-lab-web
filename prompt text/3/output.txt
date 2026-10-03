@@ -1,0 +1,27 @@
+Done — the card is the home page now, not a drawing of it.
+
+It used to be assembled: the brain cropped out of the canvas, then the name,
+the blurb and a rule set beside it on a blank navy field. Close to the page, but
+a separate thing that had to be kept in step by hand, and it had already drifted
+— the blurb was a condensed lede the page never said.
+
+So it is a photograph instead. The script serves the site, opens the home page,
+lets the brain draw and grow exactly as a visitor sees it, and shoots the hero
+band at 1200x630 — at one device pixel to one CSS pixel, so nothing is scaled up
+or down. Whatever the hero looks like is what the card shows, and the two cannot
+come apart again.
+
+Three things come out of the frame first. The demo bar and the site's own header,
+because neither belongs in a link preview. And the Spin switch: it is a control,
+and a still of it reads as a brain someone has turned off. The switch is still
+clicked — that is what settles the model while the shutter is open — it is just
+hidden before the shot rather than photographed.
+
+The atlas credit stays in. The card is a use of the tractography and CC BY-SA 4.0
+wants it attributed wherever it appears. That does leave "Drag to turn it" in a
+picture nobody can drag. It is the page's own line and I left it rather than
+start the card drifting from the page again on day one — say the word and I will
+trim that clause in the capture and keep the attribution.
+
+The card's address carries a new marker so the preview services refetch it rather
+than serve the old one from cache, and its alt text now describes the page.
